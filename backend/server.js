@@ -12,7 +12,7 @@ const corsOptions = {
 
     optionsSuccessStatus: 200, 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-    headers: 'Content-Type,Authorization',
+    allowedHeaders: 'Content-Type,Authorization',
     credentials: true,
 }
 app.use(express.json());
@@ -46,6 +46,31 @@ app.post('/create', (req, res) => {
         return res.json(data);
     })
 })
+
+app.put('/update/:id', (req, res) => {
+    // const requête
+    const sql = "UPDATE employee SET firstname=?, name=?, email=?, position=? WHERE id=?";
+    // const valeurs à insérer
+    const values = [
+        req.body.firstname,
+        req.body.name,
+        req.body.email,
+        req.body.position
+    ]
+    // const id
+    // const id = req.params.id; // params récup les paramétres dynamiques c la wildcard en symfony
+
+    // db query, exec requête
+    database.query(sql, [...values, req.params.id], (err, data) => {
+        if(err) {
+            return res.status(500).json("Error");
+        }
+        return res.json(data);
+    })
+})
+
+
+
 
 app.listen(8081, () => {
     console.log ('Server is running on port 8081 at http://localhost:8081')

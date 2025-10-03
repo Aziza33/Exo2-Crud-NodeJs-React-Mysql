@@ -29,12 +29,12 @@ function Employee() {
             {
               employee.map((data, i) => (
                 <tr key={i}>
-                  <td>{data.lastname}</td>
+                  <td>{data.firstname}</td>
                   <td>{data.name}</td>
                   <td>{data.email}</td>
                   <td>{data.position}</td>
                   <td>
-                    <button className='btn btn-light'>Modifier</button>
+                    <Link to={`/update/${data.id}`} className='btn btn-warning'>Modifier</Link>
                     <button className='btn btn-light'>Supprimer</button>
                   </td>
                 </tr>
