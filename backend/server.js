@@ -69,7 +69,16 @@ app.put('/update/:id', (req, res) => {
     })
 })
 
+app.delete('/employee/:id', (req, res) => {
+     console.log('DELETE /employee/:id hit with id =', req.params.id);
+    const sql = "DELETE FROM employee WHERE id = ?";
+    const id = req.params.id
 
+    database.query(sql, [id], (err, data) => {
+        if(err) return res.json("Error");
+        return res.json(data);
+    })
+})
 
 
 app.listen(8081, () => {
